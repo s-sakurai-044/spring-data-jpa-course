@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>テストユーザー更新</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1>テストユーザー登録</h1>
+  <form th:action="@{/testUser/{id}(id=*{id})}" th:method="put" th:object="${testUser}">
+    <div class="form-group">
+      <label class="control-label">名前</label>
+      <!-- ① -->
+      <input class="form-control" type="text" th:field="*{name}" />
+    </div>
+    <div class="form-group">
+      <label class="control-label">性別</label>
+      <select class="form-control" name="gender"/>
+        <option th:each="genderItem : ${genderList}" th:value="${genderItem.id}" th:text="${genderItem.name}" th:selected="${genderItem.id} == *{gender}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label">年齢</label>
+      <input class="form-control" type="number" th:field="*{age}" />
+    </div>
+    <button class="btn btn-default" type="submit">更新</button>
+  </form>
+  <div class="pull-right">
+    <a class="btn btn-link" href="/testUser">一覧画面へ</a>
+  </div>
+</div>
+</body>
+</html>

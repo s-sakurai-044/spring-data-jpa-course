@@ -1,0 +1,51 @@
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Demo</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>テストユーザーリスト</h1>
+    <p th:if="${#lists.isEmpty(testUserList)}">テストユーザーが登録されていません。</p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>性別</th>
+        <th>年齢</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr th:each="testUser:${testUserList}" th:object="${testUser}">
+          <td th:text="*{id}"></td>
+          <td th:text="*{name}"></td>
+          <td>
+            <th:block th:each="genderItem : ${genderList}">
+              <th:block th:text="${genderItem.name}" th:if="${genderItem.id} == *{gender}">
+
+              </th:block>
+            </th:block>
+          </td>
+          <td th:text="*{age}"></td>
+          <td style="width: 120px;">
+            <a th:href="@{/testUser/{id}/edit(id=*{id})}">
+              <button class="btn-edit">編集</button>
+            </a>
+          </td>
+          <td style="width: 120px;">
+            <form th:action="@{/testUser/{id}(id=*{id})}" th:method="delete">
+              <input class="btn btn-default btn-xs" type="submit" value="削除" />
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="btn btn-default" href="/testUser/new">新規作成</a>
+  </div>
+</body>
