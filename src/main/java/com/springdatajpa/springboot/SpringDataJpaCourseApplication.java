@@ -8,5 +8,4 @@ public class SpringDataJpaCourseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDataJpaCourseApplication.class, args);
 	}
-
 }
